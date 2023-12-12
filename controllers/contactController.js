@@ -34,7 +34,7 @@ const postContact = async ({ name, email, phone, company, message }) => {
         to: '"Gravity Infosolutions" <info@gravityinfosolutions.com>',
         // to: '"Gravity Infosolutions" <hitenkhatri14@gmail.com>',
 
-        subject: 'Contact Form Details',
+        subject: 'New Lead Entered',
 
         text: `<div>
                 <p>Name: ${name}</p>

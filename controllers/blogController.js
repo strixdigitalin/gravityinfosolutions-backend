@@ -16,7 +16,7 @@ const getBlogs=async ({id, slug})=>{
     {
         and.push({});
     }
-    const data=await Blog.find({$and: and});
+    const data=await Blog.find({$and: and}).sort({ createdAt: -1 });
     return {status: true,  data};
 };
 

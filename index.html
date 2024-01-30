@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Job Application Form</title>
+  </head>
+  <body>
+    <h2>Job Application Form</h2>
+
+    <form id="jobApplicationForm">
+      <label for="jobTitle">Job Title:</label>
+      <input type="text" id="jobTitle" name="jobTitle" required /><br />
+
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required /><br />
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required /><br />
+
+      <label for="phone">Phone:</label>
+      <input type="tel" id="phone" name="phone" required /><br />
+
+      <label for="exp">Years of Experience:</label>
+      <input type="number" id="exp" name="exp" required /><br />
+
+      <label for="resume">Resume (PDF):</label>
+      <input
+        type="file"
+        id="resume"
+        name="resume"
+        accept=".pdf"
+        required
+      /><br />
+
+      <button type="button" onclick="submitApplication()">Submit</button>
+    </form>
+
+    <script>
+      async function submitApplication() {
+        const jobTitle = document.getElementById("jobTitle").value;
+        const name = document.getElementById("name").value;
+        const email = document.getElementById("email").value;
+        const phone = document.getElementById("phone").value;
+        const exp = document.getElementById("exp").value;
+        const resume = document.getElementById("resume").files[0];
+
+        const formData = new FormData();
+        formData.append("jobTitle", jobTitle);
+        formData.append("name", name);
+        formData.append("email", email);
+        formData.append("phone", phone);
+        formData.append("exp", exp);
+        formData.append("resume", resume); // Corrected line
+
+        try {
+          const response = await fetch(
+            "http://localhost:5000/job/sendJobToMail",
+            {
+              method: "POST",
+              body: formData,
+            }
+          );
+
+          const result = await response.json();          
+          if (result.status) {
+            console.log(result);
+            alert("Job application submitted successfully!");
+          } else {
+            alert("Error submitting job application: " + result.message);
+          }
+        } catch (error) {
+          console.error("Error submitting job application:", error.message);
+        }
+      }
+    </script>
+  </body>
+</html>

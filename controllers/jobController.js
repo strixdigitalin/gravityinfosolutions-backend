@@ -53,7 +53,7 @@ const sendJobToMail = async ({ jobTitle, name, email, phone, exp, file }) => {
         from: 'Gravity Infosolutions <info@gravityinfosolutions.com',
 
         to: '"Gravity Infosolutions" <info@gravityinfosolutions.com>',
-        // to: '"Gravity Infosolutions" <hitenkhatri14@gmail.com>',
+        // to: '"Gravity Infosolutions" <owaisansari3110@gmail.com>',
 
         subject: 'Candidate Details',
 

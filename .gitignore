@@ -1,5 +1,7 @@
 node_modules
 /node_modules
-
+*.env
+index.html
+*bloginit.js
 bun.lockb
 /bun.lockb

@@ -13,6 +13,9 @@ const mySchema=mongoose.Schema({
     slug: {
         type: String,
         default: ''
+    },createdAt: {
+        type: Date,
+        default: Date.now
     },
     ts:String,
 });

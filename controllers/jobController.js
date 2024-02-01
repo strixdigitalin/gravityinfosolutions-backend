@@ -99,72 +99,57 @@ const postJob = async ({
 //   return { status: true, message: "Job request created" };
 // };
 
-async function sendJobToMail(data) {
-  // const {
-  //   jobTitle,
-  //   name,
-  //   email,
-  //   phone,
-  //   exp,
-  //   resumeBuffer,
-  //   originalFileName,
-  //   user,
-  // } = data;
+async function sendJobToMail({
+  jobTitle,
+  name,
+  email,
+  phone,
+  exp,
+  auth,
+  file,
+}) {
+  try {
+    const transport = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "gravityinfosolutions201@gmail.com",
+        pass: "rdgqycmtkgrocnwb",
+      },
+    });
 
-  // if (!resumeBuffer || !data) {
-  //   return { status: false, message: "Resume Required" };
-  // }
+    const message = {
+      from: "Gravity Infosolutions <info@gravityinfosolutions.com>",
+      to: '"Gravity Infosolutions" <filledstackdeveloper@gmail.com>',
+      subject: "Candidate Details",
+      html: `<div>
+                <p>Name: ${name}</p>
+                <p>Email: ${email}</p>
+                <p>Phone: ${phone}</p>
+                <p>Job Title: ${jobTitle}</p>
+                <p>Years of experience: ${exp}</p>
+            </div>`,
+      attachments: [
+        {
+          filename: file.originalname,
+          content: file.buffer,
+          encoding: "base64",
+        },
+      ],
+    };
 
-  // try {
-  //   // Save the resume to the "uploads" folder
-  //   const uploadFolderPath = path.join(__dirname, "../uploads");
-  //   const fileName = `${Date.now()}_${originalFileName}`;
-  //   const filePath = path.join(uploadFolderPath, fileName);
+    await transport.sendMail(message);
 
-  //   // Save the resume to the "uploads" folder with error handling
-  //   try {
-  //     fs.writeFileSync(filePath, resumeBuffer);
-  //     console.log("Resume saved!");
-  //   } catch (error) {
-  //     console.error("Error saving file:", error);
-  //     return { status: false, message: "Error saving file" };
-  //   }
-
-  //   const transport = nodemailer.createTransport({
-  //     service: "gmail",
-  //     auth: {
-  //       user: "gravityinfosolutions201@gmail.com",
-  //       pass: "rdgqycmtkgrocnwb",
-  //     },
-  //   });
-
-  //   const message = {
-  //     from: "Gravity Infosolutions <info@gravityinfosolutions.com>",
-  //     to: '"Gravity Infosolutions" <filledstackdeveloper@gmail.com>',
-  //     subject: "Candidate Details",
-  //     html: `<div>
-  //               <p>Name: ${name}</p>
-  //               <p>Email: ${email}</p>
-  //               <p>Phone: ${phone}</p>
-  //               <p>Job Title: ${jobTitle}</p>
-  //               <p>Years of experience: ${exp}</p>
-  //           </div>`,
-  //     attachments: [
-  //       {
-  //         filename: originalFileName,
-  //         path: filePath,
-  //       },
-  //     ],
-  //   };
-
-  //   // Send email
-  //   await transport.sendMail(message);
-
-  //   return { status: true, message: "Job application submitted successfully!" };
-  // } catch (error) {
-  //   console.error("Error processing job application:", error);
-  //   return { status: false, message: "Internal server error" };
-  // }
+    return {
+      status: true,
+      message: "Job application submitted successfully!",
+    };
+  } catch (error) {
+    console.error("Error processing job application:", error);
+    return {
+      status: false,
+      message: "Internal server error",
+    };
+  }
 }
 
 const updateJob = async ({
@@ -239,5 +224,6 @@ module.exports = {
   deleteAllJobs,
   deleteJob,
   deleteJobImage,
+  sendJobToMail,
   sendJobToMail,
 };

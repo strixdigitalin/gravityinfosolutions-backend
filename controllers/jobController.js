@@ -44,10 +44,10 @@ const postJob = async ({
 };
 
 // const sendJobToMail = async ({ jobTitle, name, email, phone, exp, file }) => {
-//   // if(!auth || auth.role!=='ADMIN')
-//   // {
-//   //     return { status: false, message: "Not Authorised" };
-//   // }
+// if(!auth || auth.role!=='ADMIN')
+// {
+//     return { status: false, message: "Not Authorised" };
+// }
 
 //   // Create a SMTP transport object
 //   var transport = nodemailer.createTransport({
@@ -99,15 +99,11 @@ const postJob = async ({
 //   return { status: true, message: "Job request created" };
 // };
 
-async function sendJobToMail({
-  jobTitle,
-  name,
-  email,
-  phone,
-  exp,
-  auth,
-  file,
-}) {
+const sendJobToMail = async ({ jobTitle, name, email, phone, exp, file }) => {
+  // if(!auth || auth.role!=='ADMIN')
+  // {
+  //     return { status: false, message: "Not Authorised" };
+  // }
   try {
     const transport = nodemailer.createTransport({
       service: "gmail",
@@ -150,7 +146,7 @@ async function sendJobToMail({
       message: "Internal server error",
     };
   }
-}
+};
 
 const updateJob = async ({
   id,

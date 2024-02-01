@@ -25,8 +25,11 @@ var storage = multer.diskStorage({
         cb(null, file.originalname + new Date().getTime());
     },
 });
-
 const upload = multer({ storage }).single('file');
+
+
+
+
 
 const multiUpload = multer({ storage }).fields([
     {

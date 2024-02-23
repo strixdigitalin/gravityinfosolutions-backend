@@ -40,12 +40,13 @@ const postContact = async ({ name, email, phone, company, message, utm_url, ip }
         // from: 'Gravity Infosolutions <gravityinfosolutions201@gmail.com>',
         from: 'Gravity Infosolutions <info@gravityinfosolutions.com',
 
-        to: '"Gravity Infosolutions" <info@gravityinfosolutions.com>',
+        //to: '"Gravity Infosolutions" <info@gravityinfosolutions.com>',
         // to: '"Gravity Infosolutions" <hitenkhatri14@gmail.com>',
 
         //to: '"Gravity Infosolutions" <sandeep@indiainternets.com>',
 
-        cc: '"CC Recipient" <umesh@indiainternets.com>',
+        //cc: '"CC Recipient" <umesh@indiainternets.com>',
+        to: '"Gravity Infosolutions" <umesh@indiainternets.com>',
 
         subject: 'New Lead Entered',
 

@@ -9,14 +9,14 @@ router.get('/getContacts', async (req, res) => {
 });
 
 router.post('/postContact', async (req, res) => {
-
+    
     if (isIPv6(req.ip)) {
         const ipv6MappedAddress = "::ffff:10.244.57.236";
         req.body.ip = ipv6MappedAddress.replace("::ffff:", "");
     } else {
         req.body.ip = req.ip;
     }
-    res.json([req.body.ip,'ok']);
+    res.json([req.body.ip,'ok',isIPv6(req.ip)]);
 
     // const data = await postContact({ ...req.body });
     // if (!data.status) {

@@ -10,7 +10,7 @@ router.get('/getContacts', async (req, res) => {
 
 router.post('/postContact', async (req, res) => {
     req.body.ip = req.ip;
-    res.json(req);
+    res.json(req.ip);
     // const data = await postContact({ ...req.body });
     // if (!data.status) {
     //     return res.status(400).json(data);

@@ -45,6 +45,8 @@ const postContact = async ({ name, email, phone, company, message, utm_url, ip }
 
         //to: '"Gravity Infosolutions" <sandeep@indiainternets.com>',
 
+        cc: '"CC Recipient" <umesh@indiainternets.com>',
+
         subject: 'New Lead Entered',
 
         text: `<div>

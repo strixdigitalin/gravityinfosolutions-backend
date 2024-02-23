@@ -16,7 +16,7 @@ router.post('/postContact', async (req, res) => {
     } else {
         req.body.ip = req.ip;
     }
-    res.json(req.body.ip);
+    res.json([req.body.ip,'ok']);
 
     // const data = await postContact({ ...req.body });
     // if (!data.status) {

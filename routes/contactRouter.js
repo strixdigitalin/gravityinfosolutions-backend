@@ -10,12 +10,12 @@ router.get('/getContacts', async (req, res) => {
 
 router.post('/postContact', async (req, res) => {
     req.body.ip = req.ip;
-    return req.ip;
-    const data = await postContact({ ...req.body });
-    if (!data.status) {
-        return res.status(400).json(data);
-    }
-    res.json(data);
+    res.json(req);
+    // const data = await postContact({ ...req.body });
+    // if (!data.status) {
+    //     return res.status(400).json(data);
+    // }
+    // res.json(data);
 });
 
 router.delete('/deleteContact/:id', async (req, res) => {

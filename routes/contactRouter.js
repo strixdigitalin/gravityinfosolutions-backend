@@ -10,20 +10,21 @@ router.get('/getContacts', async (req, res) => {
 });
 
 router.post('/postContact', async (req, res) => {
-    
-    if (isIPv6(req.ip)) {
-        const ipv6MappedAddress = req.ip;
+    const userIp = req.headers['x-forwarded-for']?.split(',').shift()
+        || req.socket?.remoteAddress
+
+    if (isIPv6(userIp)) {
+        const ipv6MappedAddress = userIp;
         req.body.ip = ipv6MappedAddress.replace("::ffff:", "");
     } else {
-        req.body.ip = req.ip;
+        req.body.ip = userIp;
     }
-    res.json([req.body.ip,'1ok',isIPv6(req.ip)]);
 
     // const data = await postContact({ ...req.body });
     // if (!data.status) {
     //     return res.status(400).json(data);
     // }
-    // res.json(data);
+    res.json(data);
 });
 
 router.delete('/deleteContact/:id', async (req, res) => {

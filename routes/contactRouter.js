@@ -9,8 +9,16 @@ router.get('/getContacts', async (req, res) => {
 });
 
 router.post('/postContact', async (req, res) => {
-    req.body.ip = req.ip;
-    res.json(req.ip);
+
+    if (isIPv6(req.ip)) {
+        const ipv6MappedAddress = "::ffff:10.244.57.236";
+        req.body.ip = ipv6MappedAddress.replace("::ffff:", "");
+    } else {
+        req.body.ip = req.ip;
+    }
+
+    res.json(req.body.ip);
+
     // const data = await postContact({ ...req.body });
     // if (!data.status) {
     //     return res.status(400).json(data);
@@ -25,5 +33,11 @@ router.delete('/deleteContact/:id', async (req, res) => {
     }
     res.json(data);
 });
+
+function isIPv6(address) {
+    // Regular expression to match IPv6 address format
+    const ipv6Regex = /^([0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}$/;
+    return ipv6Regex.test(address);
+}
 
 module.exports = router;

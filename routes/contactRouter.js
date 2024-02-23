@@ -19,13 +19,12 @@ router.post('/postContact', async (req, res) => {
     } else {
         req.body.ip = userIp;
     }
-    return res.json([req.body.ip,'ok']);
 
-    // const data = await postContact({ ...req.body });
-    // if (!data.status) {
-    //     return res.status(400).json(data);
-    // }
-    // res.json(data);
+    const data = await postContact({ ...req.body });
+    if (!data.status) {
+        return res.status(400).json(data);
+    }
+    res.json(data);
 });
 
 router.delete('/deleteContact/:id', async (req, res) => {

@@ -1,3 +1,4 @@
+const net = require('net');
 const express = require('express');
 const { getContacts, postContact, deleteContact } = require('../controllers/contactController');
 const auth = require('../middleware/auth');
@@ -11,7 +12,7 @@ router.get('/getContacts', async (req, res) => {
 router.post('/postContact', async (req, res) => {
     
     if (isIPv6(req.ip)) {
-        const ipv6MappedAddress = "::ffff:10.244.57.236";
+        const ipv6MappedAddress = req.ip;
         req.body.ip = ipv6MappedAddress.replace("::ffff:", "");
     } else {
         req.body.ip = req.ip;
@@ -34,9 +35,8 @@ router.delete('/deleteContact/:id', async (req, res) => {
 });
 
 function isIPv6(address) {
-    // Regular expression to match IPv6 address format
-    const ipv6Regex = /^([0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}$/;
-    return ipv6Regex.test(address);
+    // Check if the address is a valid IPv6 address
+    return net.isIPv6(address);
 }
 
 module.exports = router;
